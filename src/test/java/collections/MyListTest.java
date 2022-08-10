@@ -3,38 +3,43 @@ package collections;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 class MyListTest {
 
     @Test
     void shouldReturnSizeMyList() {
         // Given
-        List<Integer> myList = new MyList<>();
+        MyList<Integer> myList = new MyList<>();
         // When
         myList.add(2);
         myList.add(3);
         myList.add(42);
         myList.add(5);
+        myList.add(null);
+        myList.add(5);
+        myList.add(5);
+        myList.add(5);
         // Then
-        Assertions.assertEquals(4, myList.size());
+        Assertions.assertEquals(8, myList.size());
     }
 
     @Test
     void shouldAddValueToMyList() {
         // Given
-        List<Integer> myList = new MyList<>(0);
+        MyList<Integer> myList = new MyList<>();
         // When
+        myList.add(5);
+        myList.add(6);
+        myList.add(7);
+        myList.add(77);
         myList.add(8);
-        myList.add(9);
         // Then
-        Assertions.assertEquals(2, myList.size());
+        Assertions.assertEquals(5, myList.size());
     }
 
     @Test
     void shouldReturnTrueWhenMyListIsEmpty() {
         // Given
-        List<Integer> myList = new MyList<>();
+        MyList<Integer> myList = new MyList<>();
         // When
         myList.add(4);
         // Then
@@ -53,9 +58,8 @@ class MyListTest {
         myList.add("sheep");
         int sizeBeforeRemove = myList.size();
         myList.remove("cat");
-        int sizeAfterRemove = myList.size();
         // Then
-        Assertions.assertEquals(sizeAfterRemove, (sizeBeforeRemove - 1));
+        Assertions.assertEquals(myList.size, (sizeBeforeRemove - 1));
     }
 
     @Test

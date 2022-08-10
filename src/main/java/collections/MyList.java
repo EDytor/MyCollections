@@ -7,7 +7,7 @@ public class MyList<T> implements List<T> {
     int size;
 
     public MyList() {
-        this.list = new Object[0];
+        this.list = new Object[20];
     }
 
     public MyList(int capacity) {
@@ -23,7 +23,22 @@ public class MyList<T> implements List<T> {
 
     @Override
     public int size() {
-        return list.length;
+        int item = 0;
+        int index = 0;
+        for (int i = 0; i < list.length; i++) {
+            if (list[i] == null) {
+                index++;
+            } else {
+                item = i + 1;
+            }
+        }
+        if (index == 0 && item == 0) {
+            return size = 0;
+        } else if (index == 0 && item == 1) {
+            return size = 1;
+        } else {
+            return size = item;
+        }
     }
 
     @Override
@@ -58,28 +73,21 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean add(T t) {
-        extendSize();
-        list = Arrays.copyOf(list, size);
-        list[size - 1] = t;
-// TODO dodać powiększanie tablicy dwukrotnie zamiast ciagle tworzyć nową
+        if (size >= list.length) {
+            list = Arrays.copyOf(list, list.length + 10);
+        }
+        list[size] = t;
+        size++;
         return true;
-    }
-
-    private void extendSize() {
-        size = size + 1;
     }
 
     @Override
     public boolean remove(Object o) {
-        Object[] newList = new Object[size - 1];
         int index = findFirstIndex(o);
         if (index == -1) {
             return false;
         } else {
-            System.arraycopy(list, 0, newList, 0, index);
-            System.arraycopy(list, index + 1, newList, index, size - index - 1);
-            size = size - 1;
-            list = newList;
+            remove(index);
             return true;
         }
     }
@@ -87,7 +95,7 @@ public class MyList<T> implements List<T> {
     private int findFirstIndex(Object o) {
         int index = -1;
         for (int i = 0; i < size; i++) {
-            if (o == (list[i])) {
+            if (o.equals(list[i])) {
                 return i;
             }
         }
@@ -121,9 +129,7 @@ public class MyList<T> implements List<T> {
 
     @Override
     public void clear() {
-        for (int i = 0; i < size; i++) {
-            list[i] = null;
-        }
+        list = new Object[size];
     }
 
     @Override
@@ -141,18 +147,23 @@ public class MyList<T> implements List<T> {
 
     }
 
+
     @Override
     public T remove(int index) {
-        Object[] newList = new Object[size - 1];
+        T temporary = (T) list[index];
         if (index >= size) {
             throw new IndexOutOfBoundsException();
         } else {
-            T o = (T) list[index];
-            System.arraycopy(list, 0, newList, 0, index);
-            System.arraycopy(list, index + 1, newList, index, size - index - 1);
-            size = size - 1;
-            list = newList;
-            return o;
+            for (int i = index; i < size; i++) {
+                System.out.println();
+                if (i == size - 1) {
+                    break;
+                } else {
+                    list[i] = list[i + 1];
+                }
+            }
+            size--;
+            return temporary;
         }
     }
 
