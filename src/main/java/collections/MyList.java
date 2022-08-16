@@ -129,12 +129,17 @@ public class MyList<T> implements List<T> {
 
     @Override
     public void clear() {
+        size = 0;
         list = new Object[size];
     }
 
     @Override
     public T get(int index) {
-        return (T) list[index];
+        if (index < size) {
+            return (T) list[index];
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     @Override
@@ -154,18 +159,13 @@ public class MyList<T> implements List<T> {
         if (index >= size) {
             throw new IndexOutOfBoundsException();
         } else {
-            for (int i = index; i < size; i++) {
-                System.out.println();
-                if (i == size - 1) {
-                    break;
-                } else {
-                    list[i] = list[i + 1];
-                }
-            }
-            size--;
-            return temporary;
+            System.arraycopy(list, index + 1, list, index, size - index);
         }
+        size--;
+        System.out.println(size);
+        return temporary;
     }
+
 
     @Override
     public int indexOf(Object o) {

@@ -33,11 +33,11 @@ class MyListTest {
         myList.add(77);
         myList.add(8);
         // Then
-        Assertions.assertEquals(5, myList.size());
+        Assertions.assertEquals(77, myList.get(3));
     }
 
     @Test
-    void shouldReturnTrueWhenMyListIsEmpty() {
+    void shouldReturnFalseWhenMyListIsNotEmpty() {
         // Given
         MyList<Integer> myList = new MyList<>();
         // When
@@ -56,10 +56,22 @@ class MyListTest {
         myList.add("chicken");
         myList.add("cow");
         myList.add("sheep");
-        int sizeBeforeRemove = myList.size();
-        myList.remove("cat");
         // Then
-        Assertions.assertEquals(myList.size, (sizeBeforeRemove - 1));
+        Assertions.assertTrue(myList.remove("cat"));
+    }
+
+    @Test
+    void shouldReturnFalseWhenThereIsNoSuchObjectInTheList() {
+        // Given
+        MyList<String> myList = new MyList<>();
+        // When
+        myList.add("dog");
+        myList.add("cat");
+        myList.add("chicken");
+        myList.add("cow");
+        myList.add("sheep");
+        // Then
+        Assertions.assertFalse(myList.remove("horse"));
     }
 
     @Test
@@ -74,7 +86,7 @@ class MyListTest {
         myList.add("sheep");
         myList.clear();
         // Then
-        Assertions.assertNull(myList.get(3));
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> myList.get(1));
     }
 
     @Test
@@ -87,9 +99,26 @@ class MyListTest {
         myList.add("chicken");
         myList.add("cow");
         myList.add("sheep");
+        myList.remove(2);
         // Then
-        Assertions.assertEquals(myList.remove(2), "chicken");
+        Assertions.assertFalse(myList.contains("chicken"));
     }
+
+    @Test
+    void shouldReturnSmallerSizeOfListAfterRemoving() {
+        // Given
+        MyList<String> myList = new MyList<>();
+        // When
+        myList.add("dog");
+        myList.add("cat");
+        myList.add("chicken");
+        myList.add("cow");
+        myList.add("sheep");
+        myList.remove(2);
+        // Then
+        Assertions.assertEquals(4, myList.size);
+    }
+
 
     @Test
     void shouldReturnTrueIfListContainsObject() {
@@ -104,5 +133,18 @@ class MyListTest {
         // Then
         Assertions.assertTrue(myList.contains("cow"));
     }
-}
 
+    @Test
+    void shouldReturnFalseIfListNotContainsObject() {
+        // Given
+        MyList<String> myList = new MyList<>();
+        // When
+        myList.add("dog");
+        myList.add("cat");
+        myList.add("chicken");
+        myList.add("cow");
+        myList.add("sheep");
+        // Then
+        Assertions.assertFalse(myList.contains("horse"));
+    }
+}
