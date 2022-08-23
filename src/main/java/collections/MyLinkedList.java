@@ -13,23 +13,24 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
     private static class Element<T> {
         T element;
         MyLinkedList.Element<T> next;
-        MyLinkedList.Element<T> prev;
 
-        Element(MyLinkedList.Element<T> prev, T element, MyLinkedList.Element<T> next) {
+        Element(T element, MyLinkedList.Element<T> next) {
             this.element = element;
             this.next = next;
-            this.prev = prev;
         }
     }
 
     @Override
     public void addFirst(T element) {
-        first = new Element<>(null, element, null);
+        Element<T> previousFirst = first;
+        Element<T> newElement = new Element<>(element, previousFirst);
         size++;
+        first = newElement;
     }
 
     @Override
     public void addLast(T t) {
+        add(t);
     }
 
     @Override
@@ -84,11 +85,29 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public boolean removeFirstOccurrence(Object o) {
-        return false;
+        remove(o);
+        return true;
     }
 
     @Override
     public boolean removeLastOccurrence(Object o) {
+        int index = 0;
+        int lastOccurrence = -1;
+        Element<T> temporaryElement = first;
+        while (true) {
+            if (o.equals(temporaryElement.element)) {
+                lastOccurrence = index;
+            }
+            if (index == size - 1) {
+                break;
+            }
+            temporaryElement = temporaryElement.next;
+            index++;
+        }
+        if (lastOccurrence >= 0) {
+            remove(lastOccurrence);
+            return true;
+        }
         return false;
     }
 
@@ -132,13 +151,13 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
         if (size == 0 || first == null) {
             addFirst(t);
         } else if (first.next == null) {
-            first.next = new Element<>(first, t, null);
+            first.next = new Element<>(t, null);
             size++;
         } else {
             Element<T> temporaryElement = first.next;
             while (true) {
                 if (temporaryElement.next == null) {
-                    temporaryElement.next = new Element<>(temporaryElement, t, null);
+                    temporaryElement.next = new Element<>(t, null);
                     size++;
                     break;
                 } else {
@@ -177,8 +196,12 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
     @Override
     public boolean remove(Object o) {
         int i = indexOf(o);
-        remove(i);
-        return false;
+        if (i >= 0) {
+            remove(i);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -220,7 +243,6 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
     public void clear() {
         for (Element<T> i = first; i != null; ) {
             Element<T> element = i.next;
-            i.prev = null;
             i.element = null;
             i.next = null;
             i = element;
@@ -261,7 +283,7 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
             throw new IndexOutOfBoundsException();
         }
         if (index == 0) {
-            firstObject = first.element;
+            firstObject = get(0);
             Element<T> e = first.next;
             first.element = e.element;
             for (int i = 2; i < size; i++) {
@@ -275,11 +297,10 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
             for (int i = 0; i < index; i++) {
                 element = element.next;
             }
-            Element<T> n = element.next;
             firstObject = element.element;
             for (int i = index + 1; i < size; i++) {
-                element.element = n.element;
-                n = n.next;
+                element.element = element.next.element;
+                element = element.next;
             }
         }
         size--;
@@ -289,23 +310,14 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
     @Override
     public int indexOf(Object o) {
         int index = 0;
-        if (o.equals(first.element)) {
-            return index;
-        } else {
-            index++;
-        }
-        if (o.equals(first.next.element)) {
-            return index;
-        } else {
-            index++;
-        }
-        Element<T> temporaryElement = first.next;
+        Element<T> temporaryElement = first;
         while (true) {
-            if (o.equals(temporaryElement.next.element)) {
+            if (o.equals(temporaryElement.element)) {
                 return index;
-            } else if (index == size) {
-                break;
             } else {
+                if (index == size - 1) {
+                    break;
+                }
                 temporaryElement = temporaryElement.next;
                 index++;
             }

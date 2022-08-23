@@ -3,19 +3,18 @@ package collections;
 import java.util.*;
 
 public class MyList<T> implements List<T> {
-    Object[] list;
-    int size;
+    private Object[] list;
+    private int capacity;
+    private int size;
 
     public MyList() {
         this.list = new Object[20];
     }
 
     public MyList(int capacity) {
-        this.size = capacity;
-        if (capacity > 0) {
+        this.capacity = capacity;
+        if (capacity >= 0) {
             this.list = new Object[capacity];
-        } else if (capacity == 0) {
-            this.list = new Object[0];
         } else {
             throw new IllegalArgumentException("Illegal Capacity: " + capacity);
         }
@@ -23,22 +22,7 @@ public class MyList<T> implements List<T> {
 
     @Override
     public int size() {
-        int item = 0;
-        int index = 0;
-        for (int i = 0; i < list.length; i++) {
-            if (list[i] == null) {
-                index++;
-            } else {
-                item = i + 1;
-            }
-        }
-        if (index == 0 && item == 0) {
-            return size = 0;
-        } else if (index == 0 && item == 1) {
-            return size = 1;
-        } else {
-            return size = item;
-        }
+        return size;
     }
 
     @Override
@@ -73,7 +57,7 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean add(T t) {
-        if (size >= list.length) {
+        if (capacity >= list.length) {
             list = Arrays.copyOf(list, list.length + 10);
         }
         list[size] = t;
@@ -162,7 +146,6 @@ public class MyList<T> implements List<T> {
             System.arraycopy(list, index + 1, list, index, size - index);
         }
         size--;
-        System.out.println(size);
         return temporary;
     }
 

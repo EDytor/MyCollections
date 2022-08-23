@@ -3,12 +3,14 @@ package collections;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 class MyListTest {
 
     @Test
     void shouldReturnSizeMyList() {
         // Given
-        MyList<Integer> myList = new MyList<>();
+        List<Integer> myList = new MyList<>();
         // When
         myList.add(2);
         myList.add(3);
@@ -25,7 +27,7 @@ class MyListTest {
     @Test
     void shouldAddValueToMyList() {
         // Given
-        MyList<Integer> myList = new MyList<>();
+        List<Integer> myList = new MyList<>();
         // When
         myList.add(5);
         myList.add(6);
@@ -39,7 +41,7 @@ class MyListTest {
     @Test
     void shouldReturnFalseWhenMyListIsNotEmpty() {
         // Given
-        MyList<Integer> myList = new MyList<>();
+        List<Integer> myList = new MyList<>();
         // When
         myList.add(4);
         // Then
@@ -49,7 +51,7 @@ class MyListTest {
     @Test
     void shouldRemoveObjectFromList() {
         // Given
-        MyList<String> myList = new MyList<>();
+        List<String> myList = new MyList<>();
         // When
         myList.add("dog");
         myList.add("cat");
@@ -63,7 +65,7 @@ class MyListTest {
     @Test
     void shouldReturnFalseWhenThereIsNoSuchObjectInTheList() {
         // Given
-        MyList<String> myList = new MyList<>();
+        List<String> myList = new MyList<>();
         // When
         myList.add("dog");
         myList.add("cat");
@@ -77,7 +79,7 @@ class MyListTest {
     @Test
     void shouldClearWholeList() {
         // Given
-        MyList<String> myList = new MyList<>();
+        List<String> myList = new MyList<>();
         // When
         myList.add("dog");
         myList.add("cat");
@@ -92,7 +94,7 @@ class MyListTest {
     @Test
     void shouldRemoveObjectWithGivenIndex() {
         // Given
-        MyList<String> myList = new MyList<>();
+        List<String> myList = new MyList<>();
         // When
         myList.add("dog");
         myList.add("cat");
@@ -107,7 +109,7 @@ class MyListTest {
     @Test
     void shouldReturnSmallerSizeOfListAfterRemoving() {
         // Given
-        MyList<String> myList = new MyList<>();
+        List<String> myList = new MyList<>();
         // When
         myList.add("dog");
         myList.add("cat");
@@ -116,14 +118,14 @@ class MyListTest {
         myList.add("sheep");
         myList.remove(2);
         // Then
-        Assertions.assertEquals(4, myList.size);
+        Assertions.assertEquals(4, myList.size());
     }
 
 
     @Test
     void shouldReturnTrueIfListContainsObject() {
         // Given
-        MyList<String> myList = new MyList<>();
+        List<String> myList = new MyList<>();
         // When
         myList.add("dog");
         myList.add("cat");
@@ -137,7 +139,7 @@ class MyListTest {
     @Test
     void shouldReturnFalseIfListNotContainsObject() {
         // Given
-        MyList<String> myList = new MyList<>();
+        List<String> myList = new MyList<>();
         // When
         myList.add("dog");
         myList.add("cat");
@@ -146,5 +148,19 @@ class MyListTest {
         myList.add("sheep");
         // Then
         Assertions.assertFalse(myList.contains("horse"));
+    }
+
+    @Test
+    void shouldReturnTheRemovedElement() {
+        // Given
+        List<String> myList = new MyList<>();
+        // When
+        myList.add("dog");
+        myList.add("cat");
+        myList.add("chicken");
+        myList.add("cow");
+        myList.add("sheep");
+        // Then
+        Assertions.assertEquals("chicken", myList.remove(2));
     }
 }

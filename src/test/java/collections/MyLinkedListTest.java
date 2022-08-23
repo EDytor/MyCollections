@@ -56,7 +56,7 @@ class MyLinkedListTest {
         list.add("four");
         list.clear();
         // Then
-        Assertions.assertEquals(0, list.size);
+        Assertions.assertEquals(0,list.size);
     }
 
     @Test
@@ -99,7 +99,18 @@ class MyLinkedListTest {
         // Then
         Assertions.assertEquals("four", list.get(2));
     }
-
+    @Test
+    void shouldRemoveAndReturnElementWithGivenIndex() {
+        // Given
+        MyLinkedList<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        // Then
+        Assertions.assertEquals("two", list.remove(1));
+    }
     @Test
     void shouldRemoveElementWithGivenIndex() {
         // Given
@@ -109,8 +120,96 @@ class MyLinkedListTest {
         list.add("two");
         list.add("three");
         list.add("four");
-        list.remove(2);
+        list.remove(1);
         // Then
-        Assertions.assertEquals("four", list.get(2));
+        Assertions.assertEquals("three", list.get(1));
+    }
+    @Test
+    void shouldReturnFalseWhenThereIsNoElementInList() {
+        // Given
+        MyLinkedList<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        // Then
+        Assertions.assertFalse(list.remove("five"));
+    }
+    @Test
+    void shouldReturnTrueAfterRemovingElementFromList() {
+        // Given
+        MyLinkedList<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        // Then
+        Assertions.assertTrue(list.remove("two"));
+    }
+    @Test
+    void shouldAddObjectAsTheFirstElementInTheList(){
+        // Given
+        MyLinkedList<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        list.addFirst("new");
+        // Then
+        Assertions.assertEquals("new", list.get(0));
+    }
+    @Test
+    void shouldAddObjectAsTheLastElementInTheList(){
+        // Given
+        MyLinkedList<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        list.addLast("new");
+        // Then
+        Assertions.assertEquals("new", list.get(4));
+    }
+    @Test
+    void shouldReturnFirstIndexOfObjectFromList(){
+        // Given
+        MyLinkedList<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        // Then
+        Assertions.assertEquals(3, list.indexOf("four"));
+    }
+    @Test
+    void shouldReturnTrueAfterRemovingObjectFromList(){
+        // Given
+        MyLinkedList<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("three");
+        list.add("four");
+        // Then
+        Assertions.assertTrue(list.removeFirstOccurrence("three"));
+    }
+    @Test
+    void shouldReturnTrueAfterRemovingLastOccurrenceOfObjectInTheList(){
+        // Given
+        MyLinkedList<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        list.add("two");
+        // Then
+        Assertions.assertTrue(list.removeLastOccurrence("two"));
     }
 }
