@@ -3,19 +3,18 @@ package collections;
 import java.util.*;
 
 public class MyList<T> implements List<T> {
-    Object[] list;
-    int size;
+    private Object[] list;
+    private int capacity;
+    private int size;
 
     public MyList() {
-        this.list = new Object[0];
+        this.list = new Object[20];
     }
 
     public MyList(int capacity) {
-        this.size = capacity;
-        if (capacity > 0) {
+        this.capacity = capacity;
+        if (capacity >= 0) {
             this.list = new Object[capacity];
-        } else if (capacity == 0) {
-            this.list = new Object[0];
         } else {
             throw new IllegalArgumentException("Illegal Capacity: " + capacity);
         }
@@ -23,7 +22,7 @@ public class MyList<T> implements List<T> {
 
     @Override
     public int size() {
-        return list.length;
+        return size;
     }
 
     @Override
@@ -58,28 +57,21 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean add(T t) {
-        extendSize();
-        list = Arrays.copyOf(list, size);
-        list[size - 1] = t;
-// TODO dodać powiększanie tablicy dwukrotnie zamiast ciagle tworzyć nową
+        if (capacity >= list.length) {
+            list = Arrays.copyOf(list, list.length + 10);
+        }
+        list[size] = t;
+        size++;
         return true;
-    }
-
-    private void extendSize() {
-        size = size + 1;
     }
 
     @Override
     public boolean remove(Object o) {
-        Object[] newList = new Object[size - 1];
         int index = findFirstIndex(o);
         if (index == -1) {
             return false;
         } else {
-            System.arraycopy(list, 0, newList, 0, index);
-            System.arraycopy(list, index + 1, newList, index, size - index - 1);
-            size = size - 1;
-            list = newList;
+            remove(index);
             return true;
         }
     }
@@ -87,7 +79,7 @@ public class MyList<T> implements List<T> {
     private int findFirstIndex(Object o) {
         int index = -1;
         for (int i = 0; i < size; i++) {
-            if (o == (list[i])) {
+            if (o.equals(list[i])) {
                 return i;
             }
         }
@@ -121,14 +113,17 @@ public class MyList<T> implements List<T> {
 
     @Override
     public void clear() {
-        for (int i = 0; i < size; i++) {
-            list[i] = null;
-        }
+        size = 0;
+        list = new Object[size];
     }
 
     @Override
     public T get(int index) {
-        return (T) list[index];
+        if (index < size) {
+            return (T) list[index];
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     @Override
@@ -141,20 +136,19 @@ public class MyList<T> implements List<T> {
 
     }
 
+
     @Override
     public T remove(int index) {
-        Object[] newList = new Object[size - 1];
+        T temporary = (T) list[index];
         if (index >= size) {
             throw new IndexOutOfBoundsException();
         } else {
-            T o = (T) list[index];
-            System.arraycopy(list, 0, newList, 0, index);
-            System.arraycopy(list, index + 1, newList, index, size - index - 1);
-            size = size - 1;
-            list = newList;
-            return o;
+            System.arraycopy(list, index + 1, list, index, size - index);
         }
+        size--;
+        return temporary;
     }
+
 
     @Override
     public int indexOf(Object o) {
