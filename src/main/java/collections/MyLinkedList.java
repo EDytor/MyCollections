@@ -9,12 +9,15 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
 
     int size;
     Element<T> first;
+    Element<T> last;
 
     private static class Element<T> {
+        Element<T> previous;
         T element;
-        MyLinkedList.Element<T> next;
+        Element<T> next;
 
-        Element(T element, MyLinkedList.Element<T> next) {
+        Element(Element<T> previous, T element, Element<T> next) {
+            this.previous = previous;
             this.element = element;
             this.next = next;
         }
@@ -22,45 +25,90 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public void addFirst(T element) {
-        Element<T> previousFirst = first;
-        Element<T> newElement = new Element<>(element, previousFirst);
+        Element<T> previousFirst;
+        if (first != null) {
+            previousFirst = first;
+            first = new Element<>(null, element, previousFirst);
+        } else {
+            Element<T> newElement = new Element<>(null, element, null);
+            first = newElement;
+            last = newElement;
+        }
         size++;
-        first = newElement;
     }
 
     @Override
     public void addLast(T t) {
-        add(t);
+        if (size == 0) {
+            addFirst(t);
+            last.element = t;
+        } else {
+            Element<T> l = last;
+            Element<T> newElement = new Element<>(l, t, null);
+            last = newElement;
+            if (l == null)
+                first = newElement;
+            else
+                l.next = newElement;
+            size++;
+        }
     }
 
     @Override
     public boolean offerFirst(T t) {
-        return false;
+        if (t == null) {
+            throw new NullPointerException();
+        }
+        addFirst(t);
+        return true;
     }
 
     @Override
     public boolean offerLast(T t) {
-        return false;
+        if (t == null) {
+            throw new NullPointerException();
+        }
+        addLast(t);
+        return true;
     }
 
     @Override
     public T removeFirst() {
-        return null;
+        return remove(0);
     }
 
     @Override
     public T removeLast() {
-        return null;
+        T temporary = last.element;
+        if (size == 1) {
+            clear();
+            return temporary;
+        } else {
+            last = last.previous;
+            size--;
+        }
+
+        return temporary;
     }
 
     @Override
     public T pollFirst() {
-        return null;
+        Element<T> element = first;
+        if (element == null) {
+            return null;
+        } else {
+            return remove(0);
+        }
     }
 
     @Override
     public T pollLast() {
-        return null;
+        Element<T> element = last;
+        if (element == null) {
+            return null;
+        } else {
+            return removeLast();
+        }
     }
 
     public T getFirst() {
@@ -70,7 +118,7 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
     }
 
     public T getLast() {
-        return null;
+        return last.element;
     }
 
     @Override
@@ -151,13 +199,15 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
         if (size == 0 || first == null) {
             addFirst(t);
         } else if (first.next == null) {
-            first.next = new Element<>(t, null);
+            first.next = new Element<>(first, t, null);
+            last = first.next;
             size++;
         } else {
             Element<T> temporaryElement = first.next;
             while (true) {
                 if (temporaryElement.next == null) {
-                    temporaryElement.next = new Element<>(t, null);
+                    temporaryElement.next = new Element<>(temporaryElement, t, null);
+                    last = temporaryElement.next;
                     size++;
                     break;
                 } else {
@@ -180,7 +230,7 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public T poll() {
-        return null;
+        return pollFirst();
     }
 
     @Override
@@ -190,7 +240,12 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public T peek() {
-        return null;
+        Element<T> element = first;
+        if (element == null) {
+            return null;
+        } else {
+            return getFirst();
+        }
     }
 
     @Override
@@ -216,12 +271,16 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public void push(T t) {
-
+        addFirst(t);
     }
 
     @Override
     public T pop() {
-        return null;
+        if (size == 0) {
+            return null;
+        } else {
+            return removeFirst();
+        }
     }
 
     @Override
@@ -284,6 +343,11 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
         }
         if (index == 0) {
             firstObject = get(0);
+            if (first.next == null) {
+                first = null;
+                size = 0;
+                return firstObject;
+            }
             Element<T> e = first.next;
             first.element = e.element;
             for (int i = 2; i < size; i++) {

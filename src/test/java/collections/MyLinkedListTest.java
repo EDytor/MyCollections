@@ -81,7 +81,6 @@ class MyLinkedListTest {
         list.add("two");
         list.add("three");
         list.add("four");
-        System.out.println("size: " + list.size);
         // Then
         Assertions.assertEquals(4, list.size);
     }
@@ -211,5 +210,151 @@ class MyLinkedListTest {
         list.add("two");
         // Then
         Assertions.assertTrue(list.removeLastOccurrence("two"));
+    }
+    @Test
+    void shouldInsertsElementAtTheFrontOfMyLinkedList() {
+        // Given
+        MyLinkedList<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        list.offerFirst("new");
+        // Then
+        Assertions.assertEquals("new", list.get(0));
+    }
+    @Test
+    void shouldInsertsElementAtTheEndOfMyLinkedList() {
+        // Given
+        MyLinkedList<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        list.offerLast("new");
+        // Then
+        Assertions.assertEquals("new", list.getLast());
+    }
+    @Test
+    void shouldRemoveFirstElementFromMyLinkedList() {
+        // Given
+        MyLinkedList<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        list.removeFirst();
+        // Then
+        Assertions.assertEquals("two", list.getFirst());
+    }
+    @Test
+    void shouldRemoveLastElementFromMyLinkedList() {
+        // Given
+        MyLinkedList<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        list.removeLast();
+        // Then
+        Assertions.assertEquals("three", list.getLast());
+    }
+    @Test
+    void shouldRemoveAndReturnFirstElementFromMyLinkedListIfIsNotNull() {
+        // Given
+        MyLinkedList<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        // Then
+        Assertions.assertEquals("one", list.pollFirst());
+    }
+    @Test
+    void shouldReturnNullIfMyLinkedListIsEmpty() {
+        // Given
+        MyLinkedList<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.pollFirst();
+        // Then
+        Assertions.assertNull(list.pollFirst());
+    }
+    @Test
+    void shouldRemoveAndReturnLastElementFromMyLinkedListIfIsNotEmpty() {
+        // Given
+        MyLinkedList<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        // Then
+        Assertions.assertEquals("two", list.pollLast());
+    }
+    @Test
+    void shouldReturnNullWhenLinkedListIsEmpty() {
+        // Given
+        MyLinkedList<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.pollLast();
+        // Then
+        Assertions.assertNull(list.pollLast());
+    }
+    @Test
+    void shouldReturnAndRemoveTheHeadOfList() {
+        // Given
+        MyLinkedList<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        // Then
+        Assertions.assertEquals("one", list.poll());
+    }
+    @Test
+    void shouldReturnNullWhenListIsEmpty() {
+        // Given
+        MyLinkedList<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.pollLast();
+        // Then
+        Assertions.assertNull(list.peek());
+    }
+    @Test
+    void shouldInsertsElementAtTheFrontOfList() {
+        // Given
+        MyLinkedList<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.push("new");
+        // Then
+        Assertions.assertEquals("new",list.get(0));
+    }
+    @Test
+    void shouldReturnAndRemoveFirstElementFromList() {
+        // Given
+        MyLinkedList<Integer> list = new MyLinkedList<>();
+        // When
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        // Then
+        Assertions.assertEquals(1,list.pop());
+    }
+    @Test
+    void shouldReturnNullIfThereIsNoElementInTheList() {
+        // Given
+        MyLinkedList<Integer> list = new MyLinkedList<>();
+        // When
+        list.add(1);
+        list.pop();
+        // Then
+        Assertions.assertNull(list.pop());
     }
 }
