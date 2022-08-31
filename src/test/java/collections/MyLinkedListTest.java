@@ -3,12 +3,16 @@ package collections;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Deque;
+import java.util.List;
+import java.util.NoSuchElementException;
+
 class MyLinkedListTest {
 
     @Test
     void shouldReturnSizeOfMyLinkedList() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        List<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -16,13 +20,13 @@ class MyLinkedListTest {
         list.add("four");
         list.add("five");
         // Then
-        Assertions.assertEquals(5, list.size);
+        Assertions.assertEquals(5, list.size());
     }
 
     @Test
     void shouldReturnFalseWhenLinkedListIsNotEmpty() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        List<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -35,7 +39,7 @@ class MyLinkedListTest {
     @Test
     void shouldCheckIfLinkedListContainsElement() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        List<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -48,7 +52,7 @@ class MyLinkedListTest {
     @Test
     void shouldReturnEmptyLinkedList() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        List<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -56,13 +60,13 @@ class MyLinkedListTest {
         list.add("four");
         list.clear();
         // Then
-        Assertions.assertEquals(0,list.size);
+        Assertions.assertEquals(0, list.size());
     }
 
     @Test
     void shouldReturnElementWithGivenIndex() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        List<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -75,20 +79,20 @@ class MyLinkedListTest {
     @Test
     void shouldAddElementToTheLinkedList() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        Deque<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
         list.add("three");
         list.add("four");
         // Then
-        Assertions.assertEquals(4, list.size);
+        Assertions.assertEquals(4, list.size());
     }
 
     @Test
     void shouldRemoveElementFromLinkedList() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        List<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -98,10 +102,11 @@ class MyLinkedListTest {
         // Then
         Assertions.assertEquals("four", list.get(2));
     }
+
     @Test
     void shouldRemoveAndReturnElementWithGivenIndex() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        List<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -110,10 +115,11 @@ class MyLinkedListTest {
         // Then
         Assertions.assertEquals("two", list.remove(1));
     }
+
     @Test
     void shouldRemoveElementWithGivenIndex() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        List<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -123,10 +129,11 @@ class MyLinkedListTest {
         // Then
         Assertions.assertEquals("three", list.get(1));
     }
+
     @Test
     void shouldReturnFalseWhenThereIsNoElementInList() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        List<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -135,10 +142,11 @@ class MyLinkedListTest {
         // Then
         Assertions.assertFalse(list.remove("five"));
     }
+
     @Test
     void shouldReturnTrueAfterRemovingElementFromList() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        List<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -147,10 +155,11 @@ class MyLinkedListTest {
         // Then
         Assertions.assertTrue(list.remove("two"));
     }
+
     @Test
-    void shouldAddObjectAsTheFirstElementInTheList(){
+    void shouldAddObjectAsTheFirstElementInTheList() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        Deque<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -158,12 +167,13 @@ class MyLinkedListTest {
         list.add("four");
         list.addFirst("new");
         // Then
-        Assertions.assertEquals("new", list.get(0));
+        Assertions.assertEquals("new", list.getFirst());
     }
+
     @Test
-    void shouldAddObjectAsTheLastElementInTheList(){
+    void shouldAddObjectAsTheLastElementInTheList() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        Deque<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -171,12 +181,13 @@ class MyLinkedListTest {
         list.add("four");
         list.addLast("new");
         // Then
-        Assertions.assertEquals("new", list.get(4));
+        Assertions.assertEquals("new", list.getLast());
     }
+
     @Test
-    void shouldReturnFirstIndexOfObjectFromList(){
+    void shouldReturnFirstIndexOfObjectFromList() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        List<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -185,10 +196,11 @@ class MyLinkedListTest {
         // Then
         Assertions.assertEquals(3, list.indexOf("four"));
     }
+
     @Test
-    void shouldReturnTrueAfterRemovingObjectFromList(){
+    void shouldReturnTrueAfterRemovingObjectFromList() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        Deque<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -198,10 +210,11 @@ class MyLinkedListTest {
         // Then
         Assertions.assertTrue(list.removeFirstOccurrence("three"));
     }
+
     @Test
-    void shouldReturnTrueAfterRemovingLastOccurrenceOfObjectInTheList(){
+    void shouldReturnTrueAfterRemovingLastOccurrenceOfObjectInTheList() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        Deque<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -211,10 +224,11 @@ class MyLinkedListTest {
         // Then
         Assertions.assertTrue(list.removeLastOccurrence("two"));
     }
+
     @Test
     void shouldInsertsElementAtTheFrontOfMyLinkedList() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        Deque<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -222,12 +236,26 @@ class MyLinkedListTest {
         list.add("four");
         list.offerFirst("new");
         // Then
-        Assertions.assertEquals("new", list.get(0));
+        Assertions.assertEquals("new", list.getFirst());
     }
+
+    @Test
+    void shouldReturnFalseWhenElementIsNull() {
+        // Given
+        Deque<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        // Then
+        Assertions.assertFalse(list.offerFirst(null));
+    }
+
     @Test
     void shouldInsertsElementAtTheEndOfMyLinkedList() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        Deque<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -237,10 +265,37 @@ class MyLinkedListTest {
         // Then
         Assertions.assertEquals("new", list.getLast());
     }
+
+    @Test
+    void shouldReturnFalseWhenAddedElementIsNull() {
+        // Given
+        Deque<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        // Then
+        Assertions.assertFalse(list.offerLast(null));
+    }
+
+    @Test
+    void shouldReturnFirstElementFromMyLinkedList() {
+        // Given
+        Deque<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        // Then
+        Assertions.assertEquals("one", list.removeFirst());
+    }
+
     @Test
     void shouldRemoveFirstElementFromMyLinkedList() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        Deque<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -250,10 +305,24 @@ class MyLinkedListTest {
         // Then
         Assertions.assertEquals("two", list.getFirst());
     }
+
+    @Test
+    void shouldReturnLastElementFromMyLinkedList() {
+        // Given
+        Deque<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        // Then
+        Assertions.assertEquals("four", list.removeLast());
+    }
+
     @Test
     void shouldRemoveLastElementFromMyLinkedList() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        Deque<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -263,10 +332,11 @@ class MyLinkedListTest {
         // Then
         Assertions.assertEquals("three", list.getLast());
     }
+
     @Test
     void shouldRemoveAndReturnFirstElementFromMyLinkedListIfIsNotNull() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        Deque<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
@@ -275,82 +345,126 @@ class MyLinkedListTest {
         // Then
         Assertions.assertEquals("one", list.pollFirst());
     }
+
     @Test
     void shouldReturnNullIfMyLinkedListIsEmpty() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        Deque<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.pollFirst();
         // Then
         Assertions.assertNull(list.pollFirst());
     }
+
+    @Test
+    void shouldReturnNewSizeOfLinkedListAfterPollFirst() {
+        // Given
+        Deque<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.pollFirst();
+        // Then
+        Assertions.assertEquals(1, list.size());
+    }
+
     @Test
     void shouldRemoveAndReturnLastElementFromMyLinkedListIfIsNotEmpty() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        Deque<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
         // Then
         Assertions.assertEquals("two", list.pollLast());
     }
+
+    @Test
+    void shouldReturnNewSizeOfLinkedListAfterPollLast() {
+        // Given
+        Deque<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.pollLast();
+        // Then
+        Assertions.assertEquals(2, list.size());
+    }
+
     @Test
     void shouldReturnNullWhenLinkedListIsEmpty() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        Deque<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.pollLast();
         // Then
         Assertions.assertNull(list.pollLast());
     }
+
     @Test
     void shouldReturnAndRemoveTheHeadOfList() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        Deque<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
         // Then
         Assertions.assertEquals("one", list.poll());
     }
+
     @Test
     void shouldReturnNullWhenListIsEmpty() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        Deque<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.pollLast();
         // Then
         Assertions.assertNull(list.peek());
     }
+
     @Test
     void shouldInsertsElementAtTheFrontOfList() {
         // Given
-        MyLinkedList<String> list = new MyLinkedList<>();
+        Deque<String> list = new MyLinkedList<>();
         // When
         list.add("one");
         list.add("two");
         list.push("new");
         // Then
-        Assertions.assertEquals("new",list.get(0));
+        Assertions.assertEquals("new", list.getFirst());
     }
+
+    @Test
+    void shouldThrowExceptionWhenLinkedListIsEmpty() {
+        // Given
+        Deque<String> list = new MyLinkedList<>();
+        // When
+        list.add("one");
+        list.remove("one");
+        // Then
+        Assertions.assertThrows(NoSuchElementException.class, list::getLast);
+    }
+
     @Test
     void shouldReturnAndRemoveFirstElementFromList() {
         // Given
-        MyLinkedList<Integer> list = new MyLinkedList<>();
+        Deque<Integer> list = new MyLinkedList<>();
         // When
         list.add(1);
         list.add(2);
         list.add(3);
         // Then
-        Assertions.assertEquals(1,list.pop());
+        Assertions.assertEquals(1, list.pop());
     }
+
     @Test
     void shouldReturnNullIfThereIsNoElementInTheList() {
         // Given
-        MyLinkedList<Integer> list = new MyLinkedList<>();
+        Deque<Integer> list = new MyLinkedList<>();
         // When
         list.add(1);
         list.pop();

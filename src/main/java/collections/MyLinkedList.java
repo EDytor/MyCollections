@@ -13,18 +13,21 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
 
     private static class Element<T> {
         Element<T> previous;
-        T element;
+        T currentElement;
         Element<T> next;
 
-        Element(Element<T> previous, T element, Element<T> next) {
+        Element(Element<T> previous, T currentElement, Element<T> next) {
             this.previous = previous;
-            this.element = element;
+            this.currentElement = currentElement;
             this.next = next;
         }
     }
 
     @Override
     public void addFirst(T element) {
+        if (element == null) {
+            throw new NullPointerException();
+        }
         Element<T> previousFirst;
         if (first != null) {
             previousFirst = first;
@@ -39,9 +42,12 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public void addLast(T t) {
+        if (t == null) {
+            throw new NullPointerException();
+        }
         if (size == 0) {
             addFirst(t);
-            last.element = t;
+            last.currentElement = t;
         } else {
             Element<T> l = last;
             Element<T> newElement = new Element<>(l, t, null);
@@ -56,19 +62,21 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public boolean offerFirst(T t) {
-        if (t == null) {
-            throw new NullPointerException();
+        try {
+            addFirst(t);
+        } catch (NullPointerException | IllegalArgumentException | ClassCastException e) {
+            return false;
         }
-        addFirst(t);
         return true;
     }
 
     @Override
     public boolean offerLast(T t) {
-        if (t == null) {
-            throw new NullPointerException();
+        try {
+            addLast(t);
+        } catch (NullPointerException | IllegalArgumentException | ClassCastException e) {
+            return false;
         }
-        addLast(t);
         return true;
     }
 
@@ -79,7 +87,7 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public T removeLast() {
-        T temporary = last.element;
+        T temporary = last.currentElement;
         if (size == 1) {
             clear();
             return temporary;
@@ -114,11 +122,15 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
     public T getFirst() {
         if (first == null)
             throw new NoSuchElementException();
-        return first.element;
+        return first.currentElement;
     }
 
     public T getLast() {
-        return last.element;
+        if (size != 0) {
+            return last.currentElement;
+        } else {
+            throw new NoSuchElementException();
+        }
     }
 
     @Override
@@ -143,7 +155,7 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
         int lastOccurrence = -1;
         Element<T> temporaryElement = first;
         while (true) {
-            if (o.equals(temporaryElement.element)) {
+            if (o.equals(temporaryElement.currentElement)) {
                 lastOccurrence = index;
             }
             if (index == size - 1) {
@@ -198,12 +210,8 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
     public boolean add(T t) {
         if (size == 0 || first == null) {
             addFirst(t);
-        } else if (first.next == null) {
-            first.next = new Element<>(first, t, null);
-            last = first.next;
-            size++;
         } else {
-            Element<T> temporaryElement = first.next;
+            Element<T> temporaryElement = first;
             while (true) {
                 if (temporaryElement.next == null) {
                     temporaryElement.next = new Element<>(temporaryElement, t, null);
@@ -302,7 +310,7 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
     public void clear() {
         for (Element<T> i = first; i != null; ) {
             Element<T> element = i.next;
-            i.element = null;
+            i.currentElement = null;
             i.next = null;
             i = element;
         }
@@ -316,13 +324,13 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
             throw new IndexOutOfBoundsException();
         }
         if (index == 0) {
-            return first.element;
+            return first.currentElement;
         } else {
             Element<T> element = first;
             for (int i = 0; i < index; i++) {
                 element = element.next;
             }
-            return element.element;
+            return element.currentElement;
         }
     }
 
@@ -349,9 +357,9 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
                 return firstObject;
             }
             Element<T> e = first.next;
-            first.element = e.element;
+            first.currentElement = e.currentElement;
             for (int i = 2; i < size; i++) {
-                e.element = e.next.element;
+                e.currentElement = e.next.currentElement;
                 e = e.next;
             }
             size--;
@@ -361,9 +369,9 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
             for (int i = 0; i < index; i++) {
                 element = element.next;
             }
-            firstObject = element.element;
+            firstObject = element.currentElement;
             for (int i = index + 1; i < size; i++) {
-                element.element = element.next.element;
+                element.currentElement = element.next.currentElement;
                 element = element.next;
             }
         }
@@ -376,7 +384,7 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
         int index = 0;
         Element<T> temporaryElement = first;
         while (true) {
-            if (o.equals(temporaryElement.element)) {
+            if (o.equals(temporaryElement.currentElement)) {
                 return index;
             } else {
                 if (index == size - 1) {
