@@ -10,10 +10,11 @@ import java.util.List;
 
 class MyLinkedListTest {
 
-    List<String> list = new MyLinkedList<>();
+    List<String> list;
 
     @BeforeEach
     public void newList() {
+        list = new MyLinkedList<>();
         list.add("one");
         list.add("two");
         list.add("three");

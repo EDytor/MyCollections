@@ -8,27 +8,28 @@ import java.util.NoSuchElementException;
 
 class MyLinkedListDequeTest {
 
-    Deque<String> list = new MyLinkedList<>();
+    Deque<String> deque;
 
     @BeforeEach
     void init() {
-        list.add("one");
-        list.add("two");
-        list.add("three");
-        list.add("four");
+        deque = new MyLinkedList<>();
+        deque.add("one");
+        deque.add("two");
+        deque.add("three");
+        deque.add("four");
     }
     @Test
     void shouldAddElementToTheLinkedList() {
         // When
-        int size = list.size();
+        int size = deque.size();
         // Then
         Assertions.assertEquals(4, size);
     }
     @Test
     void shouldAddObjectAsTheFirstElementInTheList() {
         // When
-        list.addFirst("new");
-        String element = list.getFirst();
+        deque.addFirst("new");
+        String element = deque.getFirst();
         // Then
         Assertions.assertEquals("new", element);
     }
@@ -36,8 +37,8 @@ class MyLinkedListDequeTest {
     @Test
     void shouldAddObjectAsTheLastElementInTheList() {
         // When
-        list.addLast("new");
-        String element = list.getLast();
+        deque.addLast("new");
+        String element = deque.getLast();
         // Then
         Assertions.assertEquals("new", element);
     }
@@ -45,8 +46,8 @@ class MyLinkedListDequeTest {
     @Test
     void shouldReturnTrueAfterRemovingObjectFromList() {
         // When
-        list.add("three");
-        boolean correctlyRemoved = list.removeFirstOccurrence("three");
+        deque.add("three");
+        boolean correctlyRemoved = deque.removeFirstOccurrence("three");
         // Then
         Assertions.assertTrue(correctlyRemoved);
     }
@@ -54,8 +55,8 @@ class MyLinkedListDequeTest {
     @Test
     void shouldReturnTrueAfterRemovingLastOccurrenceOfObjectInTheList() {
         // When
-        list.add("two");
-        boolean correctlyRemoved = list.removeLastOccurrence("two");
+        deque.add("two");
+        boolean correctlyRemoved = deque.removeLastOccurrence("two");
         // Then
         Assertions.assertTrue(correctlyRemoved);
     }
@@ -63,8 +64,8 @@ class MyLinkedListDequeTest {
     @Test
     void shouldInsertsElementAtTheFrontOfMyLinkedList() {
         // When
-        list.offerFirst("new");
-        String element = list.getFirst();
+        deque.offerFirst("new");
+        String element = deque.getFirst();
         // Then
         Assertions.assertEquals("new", element);
     }
@@ -74,15 +75,15 @@ class MyLinkedListDequeTest {
         // When
         // Then
         Assertions.assertThrows(NullPointerException.class, () -> {
-            list.offerFirst(null);
+            deque.offerFirst(null);
         });
     }
 
     @Test
     void shouldInsertsElementAtTheEndOfMyLinkedList() {
         // When
-        list.offerLast("new");
-        String element = list.getLast();
+        deque.offerLast("new");
+        String element = deque.getLast();
         // Then
         Assertions.assertEquals("new", element);
     }
@@ -90,7 +91,7 @@ class MyLinkedListDequeTest {
     @Test
     void shouldReturnFalseWhenAddedElementIsNull() {
         // When
-        boolean offerNull = list.offerLast(null);
+        boolean offerNull = deque.offerLast(null);
         // Then
         Assertions.assertFalse(offerNull);
     }
@@ -98,7 +99,7 @@ class MyLinkedListDequeTest {
     @Test
     void shouldReturnFirstElementFromMyLinkedList() {
         // When
-        String element = list.removeFirst();
+        String element = deque.removeFirst();
         // Then
         Assertions.assertEquals("one", element);
     }
@@ -106,8 +107,8 @@ class MyLinkedListDequeTest {
     @Test
     void shouldRemoveFirstElementFromMyLinkedList() {
         // When
-        list.removeFirst();
-        String element = list.getFirst();
+        deque.removeFirst();
+        String element = deque.getFirst();
         // Then
         Assertions.assertEquals("two", element);
     }
@@ -115,7 +116,7 @@ class MyLinkedListDequeTest {
     @Test
     void shouldReturnLastElementFromMyLinkedList() {
         // When
-        String element = list.removeLast();
+        String element = deque.removeLast();
         // Then
         Assertions.assertEquals("four", element);
     }
@@ -123,8 +124,8 @@ class MyLinkedListDequeTest {
     @Test
     void shouldRemoveLastElementFromMyLinkedList() {
         // When
-        list.removeLast();
-        String element = list.getLast();
+        deque.removeLast();
+        String element = deque.getLast();
         // Then
         Assertions.assertEquals("three", element);
     }
@@ -132,7 +133,7 @@ class MyLinkedListDequeTest {
     @Test
     void shouldRemoveAndReturnFirstElementFromMyLinkedListIfIsNotNull() {
         // When
-        String element = list.pollFirst();
+        String element = deque.pollFirst();
         // Then
         Assertions.assertEquals("one", element);
     }
@@ -140,16 +141,16 @@ class MyLinkedListDequeTest {
     @Test
     void shouldReturnNullIfMyLinkedListIsEmpty() {
         // When
-        list.clear();
+        deque.clear();
         // Then
-        Assertions.assertNull(list.pollFirst());
+        Assertions.assertNull(deque.pollFirst());
     }
 
     @Test
     void shouldReturnNewSizeOfLinkedListAfterPollFirst() {
         // When
-        list.pollFirst();
-        int size = list.size();
+        deque.pollFirst();
+        int size = deque.size();
         // Then
         Assertions.assertEquals(3, size);
     }
@@ -157,7 +158,7 @@ class MyLinkedListDequeTest {
     @Test
     void shouldRemoveAndReturnLastElementFromMyLinkedListIfIsNotEmpty() {
         // When
-        String element = list.pollLast();
+        String element = deque.pollLast();
         // Then
         Assertions.assertEquals("four", element);
     }
@@ -165,8 +166,8 @@ class MyLinkedListDequeTest {
     @Test
     void shouldReturnNewSizeOfLinkedListAfterPollLast() {
         // When
-        list.pollLast();
-        int size = list.size();
+        deque.pollLast();
+        int size = deque.size();
         // Then
         Assertions.assertEquals(3, size);
     }
@@ -174,15 +175,15 @@ class MyLinkedListDequeTest {
     @Test
     void shouldReturnNullWhenLinkedListIsEmpty() {
         // When
-        list.clear();
+        deque.clear();
         // Then
-        Assertions.assertNull(list.pollLast());
+        Assertions.assertNull(deque.pollLast());
     }
 
     @Test
     void shouldReturnAndRemoveTheHeadOfList() {
         // When
-        String element = list.poll();
+        String element = deque.poll();
         // Then
         Assertions.assertEquals("one", element);
     }
@@ -190,10 +191,10 @@ class MyLinkedListDequeTest {
     @Test
     void shouldReturnNullWhenListIsEmpty() {
         // When
-        list.clear();
-        list.add("one");
-        list.pollFirst();
-        String element = list.peek();
+        deque.clear();
+        deque.add("one");
+        deque.pollFirst();
+        String element = deque.peek();
         // Then
         Assertions.assertNull(element);
     }
@@ -201,8 +202,8 @@ class MyLinkedListDequeTest {
     @Test
     void shouldInsertsElementAtTheFrontOfList() {
         // When
-        list.push("new");
-        String element = list.getFirst();
+        deque.push("new");
+        String element = deque.getFirst();
         // Then
         Assertions.assertEquals("new", element);
     }
@@ -210,15 +211,15 @@ class MyLinkedListDequeTest {
     @Test
     void shouldThrowExceptionWhenLinkedListIsEmpty() {
         // When
-        list.clear();
+        deque.clear();
         // Then
-        Assertions.assertThrows(NoSuchElementException.class, list::getLast);
+        Assertions.assertThrows(NoSuchElementException.class, deque::getLast);
     }
 
     @Test
     void shouldReturnAndRemoveFirstElementFromList() {
         // When
-        String element = list.pop();
+        String element = deque.pop();
         // Then
         Assertions.assertEquals("one", element);
     }
@@ -226,8 +227,8 @@ class MyLinkedListDequeTest {
     @Test
     void shouldReturnNullIfThereIsNoElementInTheList() {
         // When
-        list.clear();
+        deque.clear();
         // Then
-        Assertions.assertNull(list.pop());
+        Assertions.assertNull(deque.pop());
     }
 }
