@@ -62,21 +62,13 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public boolean offerFirst(T t) {
-        try {
-            addFirst(t);
-        } catch (NullPointerException | IllegalArgumentException | ClassCastException e) {
-            return false;
-        }
+        addFirst(t);
         return true;
     }
 
     @Override
     public boolean offerLast(T t) {
-        try {
-            addLast(t);
-        } catch (NullPointerException | IllegalArgumentException | ClassCastException e) {
-            return false;
-        }
+        addLast(t);
         return true;
     }
 
