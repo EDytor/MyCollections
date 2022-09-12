@@ -12,7 +12,7 @@ class BinaryTreeTest {
 
     @BeforeEach
     public void newTree() {
-        tree = new BinaryTree(comparator);
+        tree = new BinaryTree<>(comparator);
         tree.add(3);
         tree.add(2);
         tree.add(4);
@@ -20,7 +20,18 @@ class BinaryTreeTest {
         tree.add(1);
         tree.add(6);
     }
-
+@Test
+void shouldReturnTrueAfterAddingElement() {
+        // Then
+        Assertions.assertTrue(tree.add(7));
+}
+    @Test
+    void shouldIncreaseSizeOfTreeAfterAddingElement() {
+        // When
+        tree.add(7);
+        // Then
+        Assertions.assertEquals(7,tree.size());
+    }
     @Test
     void shouldReturnSizeOfBinaryTree() {
         // When
@@ -88,5 +99,6 @@ class BinaryTreeTest {
         //Then
         Assertions.assertFalse(tree.contains(4));
     }
+
 
 }

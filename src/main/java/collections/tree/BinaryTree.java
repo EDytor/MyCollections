@@ -8,13 +8,22 @@ public class BinaryTree<T> implements Collection<T> {
 
     private Node<T> root;
     private int size;
-    private final Comparator<Object> comparator;
+    private final Comparator<T> comparator;
 
-    public BinaryTree(Comparator<Object> comparator) {
+    public BinaryTree(Comparator<T> comparator) {
         this.comparator = comparator;
         root = null;
     }
+    private static class Node<T> {
+        public T element;
+        public Node<T> left, right;
 
+        public Node(T newElement) {
+            element = newElement;
+            left = null;
+            right = null;
+        }
+    }
     @Override
     public int size() {
         return size;
@@ -27,10 +36,10 @@ public class BinaryTree<T> implements Collection<T> {
 
     @Override
     public boolean contains(Object o) {
-        return checking(o, root);
+        return isElementContainedInTree((T) o, root);
     }
 
-    private boolean checking(Object o, Node<T> node) {
+    private boolean isElementContainedInTree(T o, Node<T> node) {
         if (node == null) {
             return false;
         }
@@ -41,7 +50,7 @@ public class BinaryTree<T> implements Collection<T> {
             if (node.left.element.equals(o)) {
                 return true;
             } else {
-                return checking(o, node.left);
+                return isElementContainedInTree(o, node.left);
             }
         } else if (comparator.compare(o, node.element) == 0) {
             return true;
@@ -52,7 +61,7 @@ public class BinaryTree<T> implements Collection<T> {
             if (node.right.element.equals(o)) {
                 return true;
             } else {
-                return checking(o, node.right);
+                return isElementContainedInTree(o, node.right);
             }
         }
     }
@@ -83,20 +92,19 @@ public class BinaryTree<T> implements Collection<T> {
             if (top.left == null) {
                 top.left = new Node<>(newElement);
                 size++;
-                return true;
             } else {
                 insertElement(top.left, newElement);
             }
+            return true;
         } else {
             if (top.right == null) {
                 top.right = new Node<T>(newElement);
                 size++;
-                return true;
             } else {
                 insertElement(top.right, newElement);
             }
+            return true;
         }
-        return false;
     }
 
     @Override
@@ -108,14 +116,14 @@ public class BinaryTree<T> implements Collection<T> {
                 return true;
             } else {
                 size--;
-                return find(o, root);
+                return find((T)o, root);
             }
         } else {
             return false;
         }
     }
 
-    private boolean find(Object e, Node<T> node) {
+    private boolean find(T e, Node<T> node) {
         if (comparator.compare(e, node.element) <= 0) {
             if (node.left.element.equals(e)) {
                 return moveElements(node.left);
@@ -167,7 +175,12 @@ public class BinaryTree<T> implements Collection<T> {
     }
 
     @Override
-    public boolean addAll(Collection c) {
+    public boolean addAll(Collection<? extends T> c) {
+        if (c == null || c.contains(null)) {
+            throw new NullPointerException();
+        }
+//        Object[] table = c.toArray();
+//        add((T) table[0]);
         return false;
     }
 
@@ -178,18 +191,18 @@ public class BinaryTree<T> implements Collection<T> {
     }
 
     @Override
-    public boolean retainAll(Collection c) {
+    public boolean retainAll(Collection<?> c) {
         return false;
     }
 
     @Override
-    public boolean removeAll(Collection c) {
+    public boolean removeAll(Collection<?> c) {
         clear();
         return true;
     }
 
     @Override
-    public boolean containsAll(Collection c) {
+    public boolean containsAll(Collection<?> c) {
         return false;
     }
 
