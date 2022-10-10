@@ -18,6 +18,7 @@ class MyLinkedListDequeTest {
         deque.add("three");
         deque.add("four");
     }
+
     @Test
     void shouldAddElementToTheLinkedList() {
         // When
@@ -25,6 +26,7 @@ class MyLinkedListDequeTest {
         // Then
         Assertions.assertEquals(4, size);
     }
+
     @Test
     void shouldAddObjectAsTheFirstElementInTheList() {
         // When
@@ -41,6 +43,31 @@ class MyLinkedListDequeTest {
         String element = deque.getLast();
         // Then
         Assertions.assertEquals("new", element);
+    }
+
+    @Test
+    void shouldAddObjectAsTheLastAndAsFirstWhenSizeIsZero() {
+        // When
+        deque.clear();
+        deque.addLast("new");
+        // Then
+        Assertions.assertEquals("new", deque.getFirst());
+    }
+
+    @Test
+    void shouldReturnSizeEqualsZeroAfterRemovingFirstAndAlsoLastElement() {
+        // When
+        Deque<Integer> deque = new MyLinkedList<>();
+        deque.add(1);
+        // Then
+        Assertions.assertEquals(1, deque.removeLast());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenObjectIsNull() {
+        // When
+        // Then
+        Assertions.assertThrows(NullPointerException.class, () -> deque.addLast(null));
     }
 
     @Test
@@ -74,9 +101,7 @@ class MyLinkedListDequeTest {
     void shouldReturnFalseWhenElementIsNull() {
         // When
         // Then
-        Assertions.assertThrows(NullPointerException.class, () -> {
-            deque.offerFirst(null);
-        });
+        Assertions.assertThrows(NullPointerException.class, () -> deque.offerFirst(null));
     }
 
     @Test
@@ -86,14 +111,6 @@ class MyLinkedListDequeTest {
         String element = deque.getLast();
         // Then
         Assertions.assertEquals("new", element);
-    }
-
-    @Test
-    void shouldReturnFalseWhenAddedElementIsNull() {
-        // When
-        boolean offerNull = deque.offerLast(null);
-        // Then
-        Assertions.assertFalse(offerNull);
     }
 
     @Test
@@ -173,6 +190,15 @@ class MyLinkedListDequeTest {
     }
 
     @Test
+    void shouldReturnNullWhenPolledObjectIsNull() {
+        // When
+        deque.add(null);
+        // Then
+        Assertions.assertNull(deque.pollLast());
+
+    }
+
+    @Test
     void shouldReturnNullWhenLinkedListIsEmpty() {
         // When
         deque.clear();
@@ -197,6 +223,13 @@ class MyLinkedListDequeTest {
         String element = deque.peek();
         // Then
         Assertions.assertNull(element);
+    }
+    @Test
+    void shouldReturnFirstElement() {
+        // When
+        String element = deque.peek();
+        // Then
+        Assertions.assertEquals("one", element);
     }
 
     @Test

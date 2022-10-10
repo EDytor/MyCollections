@@ -40,7 +40,7 @@ public class BinaryTree<T> implements Collection<T> {
     }
 
     private boolean isElementContainedInTree(T o, Node<T> node) {
-        if (node == null) {
+        if (o == null) {
             return false;
         }
         if (comparator.compare(o, node.element) < 0) {
@@ -95,7 +95,6 @@ public class BinaryTree<T> implements Collection<T> {
             } else {
                 insertElement(top.left, newElement);
             }
-            return true;
         } else {
             if (top.right == null) {
                 top.right = new Node<T>(newElement);
@@ -103,8 +102,8 @@ public class BinaryTree<T> implements Collection<T> {
             } else {
                 insertElement(top.right, newElement);
             }
-            return true;
         }
+        return true;
     }
 
     @Override
@@ -176,14 +175,8 @@ public class BinaryTree<T> implements Collection<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        if (c == null || c.contains(null)) {
-            throw new NullPointerException();
-        }
-//        Object[] table = c.toArray();
-//        add((T) table[0]);
-        return false;
+        return true;
     }
-
     @Override
     public void clear() {
         root = null;

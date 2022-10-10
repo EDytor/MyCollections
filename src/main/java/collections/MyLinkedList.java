@@ -50,12 +50,7 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
             last.currentElement = t;
         } else {
             Element<T> l = last;
-            Element<T> newElement = new Element<>(l, t, null);
-            last = newElement;
-            if (l == null)
-                first = newElement;
-            else
-                l.next = newElement;
+            last = new Element<>(l, t, null);
             size++;
         }
     }
@@ -112,8 +107,6 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
     }
 
     public T getFirst() {
-        if (first == null)
-            throw new NoSuchElementException();
         return first.currentElement;
     }
 

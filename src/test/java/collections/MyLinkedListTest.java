@@ -4,7 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
 
 
@@ -22,6 +21,11 @@ class MyLinkedListTest {
         list.add("five");
     }
 
+    @Test
+    void shouldThrowNullPointerExceptionWhenObjectIsNull() {
+
+
+    }
     @Test
     void shouldReturnSizeOfMyLinkedList() {
         // When
@@ -62,7 +66,12 @@ class MyLinkedListTest {
         // Then
         Assertions.assertEquals("two", element);
     }
-
+    @Test
+    void shouldThrowExceptionWhenIndexIsBiggerThanSize() {
+        // When
+        // Then
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.get(10));
+    }
 
     @Test
     void shouldRemoveElementFromLinkedList() {
@@ -71,6 +80,12 @@ class MyLinkedListTest {
         String element = list.get(2);
         // Then
         Assertions.assertEquals("four", element);
+    }
+    @Test
+    void shouldThrowExceptionWhenIndexOfRemovingObjectIsLowerThanZero() {
+        // When
+        // Then
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.remove(-1));
     }
 
     @Test

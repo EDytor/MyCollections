@@ -1,166 +1,137 @@
 package collections;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
 
 class MyListTest {
+    List<String> list;
+
+    @BeforeEach
+    void init() {
+        list = new MyList<>();
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add(null);
+        list.add("four");
+    }
 
     @Test
     void shouldReturnSizeMyList() {
-        // Given
-        List<Integer> myList = new MyList<>();
         // When
-        myList.add(2);
-        myList.add(3);
-        myList.add(42);
-        myList.add(5);
-        myList.add(null);
-        myList.add(5);
-        myList.add(5);
-        myList.add(5);
         // Then
-        Assertions.assertEquals(8, myList.size());
+        Assertions.assertEquals(5, list.size());
+    }
+
+    @Test
+    void shouldCreateObjectWhenCapacityIsBiggerOrEqualToZero() {
+        // When
+        //Then
+        Assertions.assertDoesNotThrow(() -> new MyList<>(10));
     }
 
     @Test
     void shouldAddValueToMyList() {
-        // Given
-        List<Integer> myList = new MyList<>();
         // When
-        myList.add(5);
-        myList.add(6);
-        myList.add(7);
-        myList.add(77);
-        myList.add(8);
+        list.add("five");
+        list.add("six");
+        list.add("seven");
         // Then
-        Assertions.assertEquals(77, myList.get(3));
+        Assertions.assertEquals("six", list.get(6));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenCapacityIsLessThanZero() {
+        Assertions.assertThrows(IllegalArgumentException.class,() -> new MyList<String>(-1));
     }
 
     @Test
     void shouldReturnFalseWhenMyListIsNotEmpty() {
-        // Given
-        List<Integer> myList = new MyList<>();
         // When
-        myList.add(4);
         // Then
-        Assertions.assertFalse(myList.isEmpty());
+        Assertions.assertFalse(list.isEmpty());
+    }
+    @Test
+    void shouldReturnTrueWhenMyListIsEmpty() {
+        // When
+        list.clear();
+        // Then
+        Assertions.assertTrue(list.isEmpty());
     }
 
     @Test
     void shouldRemoveObjectFromList() {
-        // Given
-        List<String> myList = new MyList<>();
         // When
-        myList.add("dog");
-        myList.add("cat");
-        myList.add("chicken");
-        myList.add("cow");
-        myList.add("sheep");
         // Then
-        Assertions.assertTrue(myList.remove("cat"));
+        Assertions.assertTrue(list.remove("four"));
     }
 
     @Test
     void shouldReturnFalseWhenThereIsNoSuchObjectInTheList() {
-        // Given
-        List<String> myList = new MyList<>();
         // When
-        myList.add("dog");
-        myList.add("cat");
-        myList.add("chicken");
-        myList.add("cow");
-        myList.add("sheep");
         // Then
-        Assertions.assertFalse(myList.remove("horse"));
+        Assertions.assertFalse(list.remove("zero"));
     }
 
     @Test
     void shouldClearWholeList() {
-        // Given
-        List<String> myList = new MyList<>();
         // When
-        myList.add("dog");
-        myList.add("cat");
-        myList.add("chicken");
-        myList.add("cow");
-        myList.add("sheep");
-        myList.clear();
+        list.clear();
         // Then
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> myList.get(1));
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.get(1));
     }
 
     @Test
     void shouldRemoveObjectWithGivenIndex() {
-        // Given
-        List<String> myList = new MyList<>();
         // When
-        myList.add("dog");
-        myList.add("cat");
-        myList.add("chicken");
-        myList.add("cow");
-        myList.add("sheep");
-        myList.remove(2);
+        list.remove(2);
         // Then
-        Assertions.assertFalse(myList.contains("chicken"));
+        Assertions.assertFalse(list.contains("three"));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenIndexOfRemoveIsBiggerThanSizeOfList() {
+        // When
+        // Then
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.get(8));
     }
 
     @Test
     void shouldReturnSmallerSizeOfListAfterRemoving() {
-        // Given
-        List<String> myList = new MyList<>();
         // When
-        myList.add("dog");
-        myList.add("cat");
-        myList.add("chicken");
-        myList.add("cow");
-        myList.add("sheep");
-        myList.remove(2);
+        list.remove(2);
         // Then
-        Assertions.assertEquals(4, myList.size());
+        Assertions.assertEquals(4, list.size());
     }
 
 
     @Test
     void shouldReturnTrueIfListContainsObject() {
-        // Given
-        List<String> myList = new MyList<>();
         // When
-        myList.add("dog");
-        myList.add("cat");
-        myList.add("chicken");
-        myList.add("cow");
-        myList.add("sheep");
         // Then
-        Assertions.assertTrue(myList.contains("cow"));
+        Assertions.assertTrue(list.contains("one"));
     }
 
     @Test
     void shouldReturnFalseIfListNotContainsObject() {
-        // Given
-        List<String> myList = new MyList<>();
         // When
-        myList.add("dog");
-        myList.add("cat");
-        myList.add("chicken");
-        myList.add("cow");
-        myList.add("sheep");
         // Then
-        Assertions.assertFalse(myList.contains("horse"));
+        Assertions.assertFalse(list.contains("ten"));
     }
 
     @Test
     void shouldReturnTheRemovedElement() {
-        // Given
-        List<String> myList = new MyList<>();
         // When
-        myList.add("dog");
-        myList.add("cat");
-        myList.add("chicken");
-        myList.add("cow");
-        myList.add("sheep");
         // Then
-        Assertions.assertEquals("chicken", myList.remove(2));
+        Assertions.assertEquals("three", list.remove(2));
+    }
+    @Test
+    void shouldThrowExceptionWhenIndexIsBiggerThanSize() {
+        // When
+        list.clear();
+        // Then
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.remove(10));
     }
 }

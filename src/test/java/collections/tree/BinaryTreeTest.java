@@ -15,10 +15,12 @@ class BinaryTreeTest {
         tree = new BinaryTree<>(comparator);
         tree.add(3);
         tree.add(2);
+        tree.add(0);
         tree.add(4);
-        tree.add(5);
-        tree.add(1);
         tree.add(6);
+        tree.add(1);
+        tree.add(5);
+        tree.add(8);
     }
 @Test
 void shouldReturnTrueAfterAddingElement() {
@@ -30,14 +32,14 @@ void shouldReturnTrueAfterAddingElement() {
         // When
         tree.add(7);
         // Then
-        Assertions.assertEquals(7,tree.size());
+        Assertions.assertEquals(9,tree.size());
     }
     @Test
     void shouldReturnSizeOfBinaryTree() {
         // When
         int size = tree.size();
         //Then
-        Assertions.assertEquals(6, size);
+        Assertions.assertEquals(8, size);
     }
 
     @Test
@@ -69,11 +71,17 @@ void shouldReturnTrueAfterAddingElement() {
         // Then
         Assertions.assertTrue(tree.contains(6));
     }
-
+    @Test
+    void shouldReturnFalseWhenObjectIsNull() {
+        // Then
+        Assertions.assertFalse(tree.contains(null));
+    }
     @Test
     void shouldReturnFalseWhenTreeNotContainsObject() {
         // Then
-        Assertions.assertFalse(tree.contains(7));
+        BinaryTree<Integer> newTree = new BinaryTree<>(comparator);
+        newTree.add(1);
+        Assertions.assertTrue(newTree.contains(1));
     }
 
     @Test
@@ -89,7 +97,7 @@ void shouldReturnTrueAfterAddingElement() {
         tree.remove(2);
         int size = tree.size();
         //Then
-        Assertions.assertEquals(5, size);
+        Assertions.assertEquals(7, size);
     }
 
     @Test
@@ -99,6 +107,35 @@ void shouldReturnTrueAfterAddingElement() {
         //Then
         Assertions.assertFalse(tree.contains(4));
     }
-
-
+    @Test
+    void shouldReturnFalseWhenElementIsNotExistInTree() {
+        // When
+        //Then
+        Assertions.assertFalse(tree.remove(20));
+    }
+    @Test
+    void shouldReturnTrueWhenRemovingObjectIsRoot() {
+        // Then
+        BinaryTree<Integer> newTree = new BinaryTree<>(comparator);
+        newTree.add(1);
+        Assertions.assertTrue(newTree.remove(1));
+    }
+    @Test
+    void shouldReturnTrueAfterRemovingObjectFromRightSide() {
+        // When
+        //Then
+        Assertions.assertTrue(tree.remove(5));
+    }
+    @Test
+    void shouldReturnTrueAfterRemovingObjectFromLeftSide() {
+        // When
+        //Then
+        Assertions.assertTrue(tree.remove(4));
+    }
+    @Test
+    void shouldReturnAfterRemovingTheEntireCollection() {
+        //When
+        //Then
+        Assertions.assertTrue(tree.removeAll(tree));
+    }
 }
