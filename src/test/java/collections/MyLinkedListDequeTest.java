@@ -26,7 +26,13 @@ class MyLinkedListDequeTest {
         // Then
         Assertions.assertEquals(4, size);
     }
-
+    @Test
+    void shouldThrowExceptionWhenFirstObjectIsNull() {
+        //When
+        deque.clear();
+        //Then
+        Assertions.assertThrows(NoSuchElementException.class, ()-> deque.getFirst());
+    }
     @Test
     void shouldAddObjectAsTheFirstElementInTheList() {
         // When
@@ -82,10 +88,17 @@ class MyLinkedListDequeTest {
     @Test
     void shouldReturnTrueAfterRemovingLastOccurrenceOfObjectInTheList() {
         // When
-        deque.add("two");
-        boolean correctlyRemoved = deque.removeLastOccurrence("two");
+        deque.add("one");
+        boolean correctlyRemoved = deque.removeLastOccurrence("one");
         // Then
         Assertions.assertTrue(correctlyRemoved);
+    }
+    @Test
+    void shouldReturnFalseIfThereIsNoSuchElementToRemove() {
+        // When
+        boolean correctlyRemoved = deque.removeLastOccurrence("fifteen");
+        // Then
+        Assertions.assertFalse(correctlyRemoved);
     }
 
     @Test
@@ -263,5 +276,12 @@ class MyLinkedListDequeTest {
         deque.clear();
         // Then
         Assertions.assertNull(deque.pop());
+    }
+    @Test
+    void shouldReturnNullIfLastElementIsNull() {
+        // When
+        deque.clear();
+        // Then
+        Assertions.assertNull(deque.pollLast());
     }
 }

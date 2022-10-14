@@ -95,7 +95,7 @@ class MyListTest {
     void shouldThrowExceptionWhenIndexOfRemoveIsBiggerThanSizeOfList() {
         // When
         // Then
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.get(8));
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.remove(10));
     }
 
     @Test

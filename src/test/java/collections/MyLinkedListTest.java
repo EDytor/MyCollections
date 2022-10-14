@@ -22,11 +22,6 @@ class MyLinkedListTest {
     }
 
     @Test
-    void shouldThrowNullPointerExceptionWhenObjectIsNull() {
-
-
-    }
-    @Test
     void shouldReturnSizeOfMyLinkedList() {
         // When
         int size = list.size();
@@ -41,6 +36,14 @@ class MyLinkedListTest {
         // Then
         Assertions.assertFalse(isEmpty);
     }
+    @Test
+    void shouldReturnTrueWhenLinkedListIsEmpty() {
+        // When
+        list.clear();
+        boolean isEmpty = list.isEmpty();
+        // Then
+        Assertions.assertTrue(isEmpty);
+    }
 
     @Test
     void shouldCheckIfLinkedListContainsElement() {
@@ -48,6 +51,13 @@ class MyLinkedListTest {
         boolean contains = list.contains("two");
         // Then
         Assertions.assertTrue(contains);
+    }
+    @Test
+    void shouldReturFalseIfLinkedListNotContainsElement() {
+        // When
+        boolean contains = list.contains("fifteen");
+        // Then
+        Assertions.assertFalse(contains);
     }
 
     @Test
@@ -72,6 +82,18 @@ class MyLinkedListTest {
         // Then
         Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.get(10));
     }
+    @Test
+    void shouldThrowExceptionWhenIndexIsLowerThanZero() {
+        // When
+        // Then
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.get(-1));
+    }
+    @Test
+    void shouldThrowExceptionWhenRemovingElementHasIndexLowerThanZero() {
+        // When
+        // Then
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.remove(-1));
+    }
 
     @Test
     void shouldRemoveElementFromLinkedList() {
@@ -82,10 +104,10 @@ class MyLinkedListTest {
         Assertions.assertEquals("four", element);
     }
     @Test
-    void shouldThrowExceptionWhenIndexOfRemovingObjectIsLowerThanZero() {
+    void shouldThrowExceptionWhenIndexOfRemovingObjectIsBiggerThanSize() {
         // When
         // Then
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.remove(-1));
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.remove(10));
     }
 
     @Test

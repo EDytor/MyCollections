@@ -107,6 +107,8 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
     }
 
     public T getFirst() {
+        if (first == null)
+            throw new NoSuchElementException();
         return first.currentElement;
     }
 
@@ -193,7 +195,7 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public boolean add(T t) {
-        if (size == 0 || first == null) {
+        if (size == 0) {
             addFirst(t);
         } else {
             Element<T> temporaryElement = first;
