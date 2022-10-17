@@ -22,18 +22,21 @@ class BinaryTreeTest {
         tree.add(5);
         tree.add(8);
     }
-@Test
-void shouldReturnTrueAfterAddingElement() {
+
+    @Test
+    void shouldReturnTrueAfterAddingElement() {
         // Then
         Assertions.assertTrue(tree.add(7));
-}
+    }
+
     @Test
     void shouldIncreaseSizeOfTreeAfterAddingElement() {
         // When
         tree.add(7);
         // Then
-        Assertions.assertEquals(9,tree.size());
+        Assertions.assertEquals(9, tree.size());
     }
+
     @Test
     void shouldReturnSizeOfBinaryTree() {
         // When
@@ -71,11 +74,13 @@ void shouldReturnTrueAfterAddingElement() {
         // Then
         Assertions.assertTrue(tree.contains(6));
     }
+
     @Test
     void shouldReturnFalseWhenObjectIsNull() {
         // Then
         Assertions.assertFalse(tree.contains(null));
     }
+
     @Test
     void shouldReturnFalseWhenTreeNotContainsObject() {
         // Then
@@ -107,12 +112,14 @@ void shouldReturnTrueAfterAddingElement() {
         //Then
         Assertions.assertFalse(tree.contains(4));
     }
+
     @Test
     void shouldReturnFalseWhenElementIsNotExistInTree() {
         // When
         //Then
         Assertions.assertFalse(tree.remove(20));
     }
+
     @Test
     void shouldReturnTrueWhenRemovingObjectIsRoot() {
         // Then
@@ -120,18 +127,21 @@ void shouldReturnTrueAfterAddingElement() {
         newTree.add(1);
         Assertions.assertTrue(newTree.remove(1));
     }
+
     @Test
     void shouldReturnTrueAfterRemovingObjectFromRightSide() {
         // When
         //Then
         Assertions.assertTrue(tree.remove(5));
     }
+
     @Test
     void shouldReturnTrueAfterRemovingObjectFromLeftSide() {
         // When
         //Then
         Assertions.assertTrue(tree.remove(4));
     }
+
     @Test
     void shouldReturnAfterRemovingTheEntireCollection() {
         //When

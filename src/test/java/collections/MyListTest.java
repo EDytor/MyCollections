@@ -3,6 +3,7 @@ package collections;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.util.List;
 
 class MyListTest {
@@ -44,7 +45,7 @@ class MyListTest {
 
     @Test
     void shouldThrowExceptionWhenCapacityIsLessThanZero() {
-        Assertions.assertThrows(IllegalArgumentException.class,() -> new MyList<String>(-1));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new MyList<String>(-1));
     }
 
     @Test
@@ -53,6 +54,7 @@ class MyListTest {
         // Then
         Assertions.assertFalse(list.isEmpty());
     }
+
     @Test
     void shouldReturnTrueWhenMyListIsEmpty() {
         // When
@@ -127,11 +129,24 @@ class MyListTest {
         // Then
         Assertions.assertEquals("three", list.remove(2));
     }
+
     @Test
     void shouldThrowExceptionWhenIndexIsBiggerThanSize() {
         // When
         list.clear();
         // Then
         Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.remove(10));
+    }
+
+    @Test
+    void shouldAddObject() {
+        // Given
+        List<String> myList = new MyList<>(2);
+        // When
+        myList.add("one");
+        myList.add("two");
+        myList.add("three");
+        // Then
+        Assertions.assertEquals(3, myList.size());
     }
 }

@@ -3,6 +3,7 @@ package collections;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.util.Deque;
 import java.util.NoSuchElementException;
 
@@ -26,13 +27,15 @@ class MyLinkedListDequeTest {
         // Then
         Assertions.assertEquals(4, size);
     }
+
     @Test
     void shouldThrowExceptionWhenFirstObjectIsNull() {
         //When
         deque.clear();
         //Then
-        Assertions.assertThrows(NoSuchElementException.class, ()-> deque.getFirst());
+        Assertions.assertThrows(NoSuchElementException.class, () -> deque.getFirst());
     }
+
     @Test
     void shouldAddObjectAsTheFirstElementInTheList() {
         // When
@@ -93,6 +96,7 @@ class MyLinkedListDequeTest {
         // Then
         Assertions.assertTrue(correctlyRemoved);
     }
+
     @Test
     void shouldReturnFalseIfThereIsNoSuchElementToRemove() {
         // When
@@ -205,7 +209,7 @@ class MyLinkedListDequeTest {
     @Test
     void shouldReturnNullWhenPolledObjectIsNull() {
         // When
-        deque.add(null);
+        Deque<String> deque = new MyLinkedList<>();
         // Then
         Assertions.assertNull(deque.pollLast());
 
@@ -237,6 +241,7 @@ class MyLinkedListDequeTest {
         // Then
         Assertions.assertNull(element);
     }
+
     @Test
     void shouldReturnFirstElement() {
         // When
@@ -277,6 +282,7 @@ class MyLinkedListDequeTest {
         // Then
         Assertions.assertNull(deque.pop());
     }
+
     @Test
     void shouldReturnNullIfLastElementIsNull() {
         // When
