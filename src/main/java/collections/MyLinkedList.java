@@ -50,12 +50,7 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
             last.currentElement = t;
         } else {
             Element<T> l = last;
-            Element<T> newElement = new Element<>(l, t, null);
-            last = newElement;
-            if (l == null)
-                first = newElement;
-            else
-                l.next = newElement;
+            last = new Element<>(l, t, null);
             size++;
         }
     }
@@ -200,7 +195,7 @@ public class MyLinkedList<T> implements List<T>, Deque<T> {
 
     @Override
     public boolean add(T t) {
-        if (size == 0 || first == null) {
+        if (size == 0) {
             addFirst(t);
         } else {
             Element<T> temporaryElement = first;

@@ -39,11 +39,28 @@ class MyLinkedListTest {
     }
 
     @Test
+    void shouldReturnTrueWhenLinkedListIsEmpty() {
+        // When
+        list.clear();
+        boolean isEmpty = list.isEmpty();
+        // Then
+        Assertions.assertTrue(isEmpty);
+    }
+
+    @Test
     void shouldCheckIfLinkedListContainsElement() {
         // When
         boolean contains = list.contains("two");
         // Then
         Assertions.assertTrue(contains);
+    }
+
+    @Test
+    void shouldReturFalseIfLinkedListNotContainsElement() {
+        // When
+        boolean contains = list.contains("fifteen");
+        // Then
+        Assertions.assertFalse(contains);
     }
 
     @Test
@@ -63,6 +80,26 @@ class MyLinkedListTest {
         Assertions.assertEquals("two", element);
     }
 
+    @Test
+    void shouldThrowExceptionWhenIndexIsBiggerThanSize() {
+        // When
+        // Then
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.get(10));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenIndexIsLowerThanZero() {
+        // When
+        // Then
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.get(-1));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenRemovingElementHasIndexLowerThanZero() {
+        // When
+        // Then
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.remove(-1));
+    }
 
     @Test
     void shouldRemoveElementFromLinkedList() {
@@ -71,6 +108,13 @@ class MyLinkedListTest {
         String element = list.get(2);
         // Then
         Assertions.assertEquals("four", element);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenIndexOfRemovingObjectIsBiggerThanSize() {
+        // When
+        // Then
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.remove(10));
     }
 
     @Test
